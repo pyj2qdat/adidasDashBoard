@@ -18,8 +18,21 @@ data["Operating Margin"] = data["Operating Margin"].replace('[\%,]', '', regex=T
 data["Invoice Date"] = pd.to_datetime(data["Invoice Date"], errors="coerce")
 data = data.dropna(subset=["Invoice Date"])
 
-#  파생 변수 생성
+# 파생 변수 생성
 data["Profit Rate"] = data["Operating Margin"] * 0.01
 data["Year"] = data["Invoice Date"].dt.year
 data["Month"] = data["Invoice Date"].dt.month
 
+# 사이드바 필터 구현
+st.sidebar.header("Filter Options")
+region = st.sidebar.multiselect("Region", options=sorted(data["Region"].dropna().unique()), default=list(data["Region"].dropna().unique()))
+retailer = st.sidebar.multiselect("Retailer", options=sorted(data["Retailer"].dropna().unique()), default=list(data["Retailer"].dropna().unique()))
+product = st.sidebar.multiselect("Product", options=sorted(data["Product"].dropna().unique()), default=list(data["Product"].dropna().unique()))
+sales_method = st.sidebar.multiselect("Sales Method", options=sorted(data["Sales Method"].dropna().unique()), default=list(data["Sales Method"].dropna().unique()))
+
+filtered = data[
+    data["Region"].isin(region) &
+    data["Retailer"].isin(retailer) &
+    data["Product"].isin(product) &
+    data["Sales Method"].isin(sales_method)
+]
