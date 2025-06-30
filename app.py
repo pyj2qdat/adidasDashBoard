@@ -48,7 +48,7 @@ k3.metric("평균 단가 ($)", f"{filtered['Price per Unit'].mean():.2f}")
 k4.metric("평균 마진율 (%)", f"{filtered['Operating Margin'].mean():.2f}")
 
 # 6. 탭 레이아웃 구성
-tat1, tab2, tab3 = st.tabs(["트렌드 및 분포","소매점/제품","심화 분석"])
+tab1, tab2, tab3 = st.tabs(["트렌드 및 분포","소매점/제품","심화 분석"])
 
 # 7. 트렌드 및 분포 시각화
 with tab1:
