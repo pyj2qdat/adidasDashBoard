@@ -67,6 +67,10 @@ with tab1:
     with c2:
         st.markdown("#### 판매방법 비율")
         method_counts = filtered["Sales Method"].value_counts()
+        
+        import plotly.graph_objects as go
+
+        
         pie_fig = go.Figure(
             data=[go.Pie(
                 labels=method_counts.index,
