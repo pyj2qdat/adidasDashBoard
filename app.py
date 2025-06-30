@@ -1,3 +1,4 @@
+# 1. 라이브러리 임포트 및 기본 설정
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -6,10 +7,11 @@ import seaborn as sns
 st.set_page_config(page_title="Adidas US Sales Dashboard", layout="wide")
 st.title("📊 Adidas US Sales Data Dashboard")
 
-# 데이터 불러오기
+
+# 2. 데이터 불러오기 및 전처리
+
 data = pd.read_csv("https://raw.githubusercontent.com/myoh0623/dataset/refs/heads/main/adidas_us_sales_datasets.csv")
 
-# 컬럼 정리 및 타입 변환
 data.columns = data.columns.str.strip()
 for col in ["Price per Unit", "Total Sales", "Operating Profit"]:
     data[col] = data[col].replace('[\$,]', '', regex=True).astype(float)
@@ -45,3 +47,7 @@ k2.metric("총 판매수량", f"{filtered['Units Sold'].sum():,}")
 k3.metric("평균 단가 ($)", f"{filtered['Price per Unit'].mean():.2f}")
 k4.metric("평균 마진율 (%)", f"{filtered['Operating Margin'].mean():.2f}")
 
+# 탭 레이아웃 구성
+tat1, tab2, tab3 = st.tabs(["트렌드 및 분포","소매점/제품","심화 분석"])
+
+# 트렌드 및 분포 시각화
