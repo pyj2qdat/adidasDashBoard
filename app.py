@@ -36,3 +36,12 @@ filtered = data[
     data["Product"].isin(product) &
     data["Sales Method"].isin(sales_method)
 ]
+
+# 주요 지표 요약 표시
+st.markdown("## 📈 주요 지표")
+k1, k2, k3, k4 = st.columns(4)
+k1.metric("총 매출액 ($)", f"{filtered['Total Sales'].sum():,.0f}")
+k2.metric("총 판매수량", f"{filtered['Units Sold'].sum():,}")
+k3.metric("평균 단가 ($)", f"{filtered['Price per Unit'].mean():.2f}")
+k4.metric("평균 마진율 (%)", f"{filtered['Operating Margin'].mean():.2f}")
+
